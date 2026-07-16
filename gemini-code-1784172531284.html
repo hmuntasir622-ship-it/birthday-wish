@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>A Magical Birthday Surprise 🎂✨</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lavender: #E8E0FF;
+    --blush: #FFE5EC;
+    --mint: #E8FDF5;
+    --plum: #5D4361;
+    --coral: #FF758F;
+    --gold: #FFC75F;
+    --cream: #FFFDF9;
+    --ink: #3D313F;
+    --frosting: #FFF0F5;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.85);
+    --shadow: 0 16px 40px rgba(93, 67, 97, 0.15);
+    --shadow-soft: 0 8px 24px rgba(93, 67, 97, 0.08);
+    --spring-easing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --jelly-easing: cubic-bezier(0.25, 0.8, 0.25, 1.4);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100dvh;
+    font-family: 'Quicksand', sans-serif;
+    color: var(--ink);
+    overflow-x: hidden;
+    background: #EAE2F8;
+  }
+
+  body{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100dvh;
+  }
+
+  /* ---------- PREMIUM CONTAINER ---------- */
+  .app-shell{
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    min-height: 100dvh;
+    margin: 0 auto;
+    background:
+      radial-gradient(circle at 10% 15%, var(--blush) 0%, transparent 50%),
+      radial-gradient(circle at 90% 20%, var(--mint) 0%, transparent 45%),
+      radial-gradient(circle at 50% 85%, var(--lavender) 0%, transparent 60%),
+      var(--cream);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 481px){
+    body{ padding: 30px 0; }
+    .app-shell{
+      min-height: min(880px, 94dvh);
+      border-radius: 40px;
+      box-shadow: 0 35px 80px rgba(40, 25, 45, 0.25);
+      border: 2px solid rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  /* ---------- AMBIENT SOFT ROTATING SPARKLES ---------- */
+  .ambient-layer{
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+  }
+  .sparkle-decor {
+    position: absolute;
+    opacity: 0;
+    animation: sparkleAnimation var(--d) linear infinite;
+    transform-origin: center;
+  }
+  @keyframes sparkleAnimation {
+    0% { transform: translateY(105dvh) rotate(0deg) scale(0.6); opacity: 0; }
+    15% { opacity: var(--op); }
+    85% { opacity: var(--op); }
+    100% { transform: translateY(-100px) rotate(360deg) scale(1.1); opacity: 0; }
+  }
+
+  .glass{
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  main.app{
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 24px 80px;
+  }
+
+  /* ---------- INTERACTIVE FLOATING BALLOONS SYSTEM ---------- */
+  .balloon-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .balloon {
+    position: absolute;
+    width: 75px;
+    height: 90px;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: inset -6px -6px 14px rgba(0,0,0,0.08), 3px 10px 18px rgba(93, 67, 97, 0.12);
+    animation: balloonBob var(--bob-time) ease-in-out infinite alternate;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .balloon::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 7px solid var(--b-color);
+  }
+  .balloon-string {
+    position: absolute;
+    width: 2px;
+    height: 70px;
+    background: rgba(93, 67, 97, 0.2);
+    bottom: -75px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .balloon-shine {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    width: 14px;
+    height: 22px;
+    background: rgba(255,255,255,0.65);
+    border-radius: 50%;
+    transform: rotate(25deg);
+  }
+  @keyframes balloonBob {
+    0% { transform: translateY(0) rotate(-2deg); }
+    100% { transform: translateY(-16px) rotate(2deg); }
+  }
+
+  /* ---------- FLUID SCREEN SLIDE-AND-FADE TRANSITIONS ---------- */
+  .screen-container {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    min-height: 440px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .screen{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    padding: 36px 24px 30px;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100%) scale(0.9);
+    transition: transform 0.65s var(--spring-easing), opacity 0.45s ease, visibility 0.45s;
+  }
+
+  .screen.active{
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+  }
+
+  .screen.exit {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%) scale(0.9);
+  }
+
+  h1, h2{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--plum);
+    margin: 0 0 10px;
+  }
+  h1{ font-size: clamp(1.35rem, 5.5vw, 1.75rem); }
+
+  p.sub{
+    font-size: clamp(0.9rem, 3.2vw, 1.05rem);
+    color: var(--ink);
+    opacity: 0.85;
+    margin: 0 0 24px;
+    line-height: 1.5;
+  }
+
+  /* ---------- PREMIUM SQUISHY JELLY ANIMATION MECHANICS ---------- */
+  .jelly-hover {
+    transition: transform 0.45s var(--jelly-easing);
+  }
+  .jelly-hover:hover, .jelly-hover:active {
+    transform: scale(1.08, 0.92);
+  }
+
+  /* ---------- GRAPHICAL VECTOR ASSETS ---------- */
+  .puppy-wrap{
+    width: min(170px, 42vw);
+    margin: 0 auto 16px;
+    animation: cuteBounce 3.5s ease-in-out infinite;
+    filter: drop-shadow(0 14px 20px rgba(93,67,97,0.15));
+    cursor: pointer;
+  }
+  
+  .cake-wrap{
+    width: min(230px, 60vw);
+    cursor: pointer;
+    margin: 10px auto;
+    animation: cuteBounce 3s ease-in-out infinite;
+    filter: drop-shadow(0 16px 24px rgba(93, 67, 97, 0.16));
+    position: relative;
+  }
+  @keyframes cuteBounce{
+    0%, 100%{ transform: translateY(0) scale(1); }
+    50%{ transform: translateY(-12px) scale(1.02, 0.98); }
+  }
+
+  .flame{ transform-origin: 50% 100%; animation: flicker 0.35s ease-in-out infinite alternate; }
+  @keyframes flicker{ 0%{ transform: scale(1) rotate(-3deg); } 100%{ transform: scale(1.1, 0.95) rotate(3deg); } }
+  .flame.out{ display: none; }
+  .smoke{ opacity: 0; }
+  .smoke.show{ animation: smokeRise 1.2s ease-out forwards; }
+  @keyframes smokeRise{
+    0%{ opacity: 0.7; transform: translateY(0) scale(1); }
+    100%{ opacity: 0; transform: translateY(-50px) scale(1.8); }
+  }
+
+  .puff-text {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.9rem;
+    color: var(--coral);
+    background: #fff;
+    padding: 4px 12px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-soft);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 10;
+  }
+  @keyframes puffFloating {
+    0% { opacity: 0; transform: translate(-50%, 10px) scale(0.7); }
+    20% { opacity: 1; transform: translate(-50%, -10px) scale(1.1); }
+    80% { opacity: 0.8; }
+    100% { opacity: 0; transform: translate(-30%, -45px) scale(0.8); }
+  }
+
+  .cake-sparkle {
+    animation: pulseStar 2s infinite ease-in-out;
+    transform-origin: center;
+  }
+  @keyframes pulseStar {
+    0%, 100% { transform: scale(0.6) rotate(0deg); opacity: 0.4; }
+    50% { transform: scale(1.2) rotate(90deg); opacity: 1; }
+  }
+
+  .mic-status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--plum);
+    min-height: 24px;
+  }
+  .eq-bars{ display: flex; align-items: flex-end; gap: 3px; height: 16px; }
+  .eq-bars span{
+    width: 4px;
+    background: var(--coral);
+    border-radius: 2px;
+    animation: eqBounce 0.8s ease-in-out infinite;
+  }
+  .eq-bars span:nth-child(1){ height: 6px; animation-delay: 0s; }
+  .eq-bars span:nth-child(2){ height: 14px; animation-delay: 0.15s; }
+  .eq-bars span:nth-child(3){ height: 9px; animation-delay: 0.3s; }
+  @keyframes eqBounce{ 0%, 100%{ transform: scaleY(0.6); } 50%{ transform: scaleY(1.4); } }
+  .tap-hint{ font-size: 0.8rem; opacity: 0.65; margin-top: 6px; font-weight: 500; }
+
+  /* ---------- GIFT PACKAGING ---------- */
+  .gift-container {
+    width: min(190px, 50vw);
+    margin: 10px auto;
+    position: relative;
+  }
+  .gift-wrap{
+    width: 100%;
+    cursor: pointer;
+    filter: drop-shadow(0 16px 24px rgba(93, 67, 97, 0.16));
+  }
+  .gift-lid{ transform-origin: 50% 100%; transition: transform 0.6s cubic-bezier(.34, 1.6, .64, 1), opacity 0.4s; }
+  .gift-wrap.opened .gift-lid{ transform: translateY(-45px) rotate(-22deg) scale(0.9); opacity: 0; }
+  .gift-glow{ opacity: 0; transition: opacity 0.5s ease; }
+  .gift-wrap.opened .gift-glow{ opacity: 1; }
+
+  /* ---------- VINTAGE PACKAGING WITH EDGED PULSATING WARMTING GLOW ---------- */
+  .letter-wrap{ width: 100%; display: flex; justify-content: center; position: relative; }
+  .letter-card{
+    position: relative;
+    width: 100%;
+    background-color: #f6f0df;
+    background-image:
+      radial-gradient(ellipse at 10% 10%, rgba(139,111,71,0.14) 0%, transparent 40%),
+      radial-gradient(ellipse at 90% 90%, rgba(139,111,71,0.16) 0%, transparent 40%),
+      repeating-linear-gradient(0deg, rgba(139,111,71,0.03) 0px, transparent 1px, transparent 3px);
+    border: 6px double #b3926a;
+    border-radius: 12px;
+    padding: clamp(24px, 6vw, 36px) clamp(20px, 5vw, 32px);
+    box-shadow:
+      0 20px 45px rgba(80, 50, 20, 0.22),
+      inset 0 0 50px rgba(139,111,71,0.2),
+      inset 0 0 0 4px rgba(255,253,245,0.6);
+    text-align: center;
+    overflow: hidden;
+    animation: letterWarmGlow 3s ease-in-out infinite alternate;
+  }
+  @keyframes letterWarmGlow {
+    0% { border-color: #b3926a; box-shadow: 0 20px 45px rgba(80, 50, 20, 0.22), inset 0 0 40px rgba(255, 199, 95, 0.15); }
+    100% { border-color: #d1ab7d; box-shadow: 0 20px 50px rgba(255, 117, 143, 0.25), inset 0 0 60px rgba(255, 199, 95, 0.35); }
+  }
+  .letter-title{
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    color: #764e29;
+    margin: 0 0 12px;
+  }
+  .letter-card p.msg-body{
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    font-size: clamp(1.25rem, 4.8vw, 1.5rem);
+    line-height: 1.6;
+    color: #52371c;
+    margin: 0;
+    white-space: pre-wrap;
+  }
+  .letter-seal{
+    margin-top: 22px;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #92754e;
+    opacity: 0.8;
+  }
+
+  .letter-confetti {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* ---------- INTERACTION BUTTONS DESIGN ---------- */
+  .btn-row{ display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; justify-content: center; width: 100%; }
+  button{
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    padding: 14px 32px;
+    border-radius: 999px;
+    transition: transform 0.4s var(--jelly-easing), box-shadow 0.2s ease, background 0.3s;
+    box-shadow: var(--shadow-soft);
+  }
+  button:focus-visible{ outline: 3px solid var(--plum); outline-offset: 2px; }
+  button:hover, button:active{ transform: scale(1.08, 0.92) translateY(-2px); box-shadow: var(--shadow); }
+  .btn-yes{ background: linear-gradient(135deg, var(--coral), #FFA3B1); color: #fff; }
+  .btn-no{ background: rgba(232, 224, 255, 0.85); color: var(--plum); }
+
+  /* ---------- MODALS & LAYERS ---------- */
+  .modal-overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(61, 49, 63, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    backdrop-filter: blur(5px);
+    padding: 24px;
+    border-radius: inherit;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+  }
+  .modal-overlay.active{ opacity: 1; visibility: visible; }
+  .modal-box{
+    background: rgba(255, 253, 249, 0.95);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 26px;
+    padding: 32px 24px;
+    width: min(290px, 100%);
+    text-align: center;
+    box-shadow: var(--shadow);
+    transform: scale(0.85);
+    transition: transform 0.4s var(--spring-easing);
+  }
+  .modal-overlay.active .modal-box { transform: scale(1); }
+  .modal-box p{ font-size: 1.1rem; font-weight: 500; margin: 0 0 20px; }
+  .modal-box button{ background: var(--coral); color: #fff; padding: 11px 28px; }
+
+  .music-toggle{
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-soft);
+    z-index: 30;
+    padding: 0;
+  }
+  .music-toggle.show{ display: flex; }
+
+  .admin-toggle{
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--plum);
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 10px 16px;
+    box-shadow: var(--shadow-soft);
+    z-index: 30;
+  }
+
+  /* ---------- ADMINISTRATIVE DRAWERS ---------- */
+  .sidebar-overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(61, 49, 63, 0.3);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 44;
+    border-radius: inherit;
+  }
+  .sidebar-overlay.open{ opacity: 1; pointer-events: auto; }
+
+  .admin-panel{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 85%;
+    width: 100%;
+    background: rgba(255, 253, 249, 0.98);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 28px 28px 0 0;
+    padding: 16px 26px 26px;
+    box-shadow: 0 -15px 45px rgba(93, 67, 97, 0.2);
+    transform: translateY(100%);
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 45;
+    overflow-y: auto;
+  }
+  .admin-panel.open{ transform: translateY(0); }
+  .drag-handle{ width: 44px; height: 5px; border-radius: 3px; background: rgba(93,67,97,0.2); margin: 0 auto 16px; }
+  .admin-panel h3{ font-family: 'Fredoka', sans-serif; color: var(--plum); margin: 0 0 6px; font-size: 1.1rem; }
+  .admin-panel p.hint{ font-size: 0.82rem; opacity: 0.75; margin: 0 0 16px; line-height: 1.4; }
+  
+  textarea{
+    width: 100%;
+    min-height: 120px;
+    border-radius: 16px;
+    border: 2px solid var(--lavender);
+    padding: 12px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    resize: vertical;
+    margin: 0 0 14px;
+    background: rgba(255, 255, 255, 0.8);
+  }
+  textarea:focus{ outline: none; border-color: var(--coral); }
+  
+  .admin-actions{ display: flex; flex-direction: column; gap: 10px; }
+  .btn-generate{ background: linear-gradient(135deg, var(--plum), #7E5D83); color: #fff; padding: 12px; font-size: 0.9rem; width: 100%; }
+  .btn-close-admin{ background: var(--lavender); color: var(--plum); padding: 10px; font-size: 0.88rem; width: 100%; }
+  
+  .link-preview{
+    font-size: 0.75rem;
+    color: var(--plum);
+    background: rgba(232, 224, 255, 0.6);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin: 14px 0 0;
+    word-break: break-all;
+    display: none;
+  }
+  .link-preview.show{ display: block; }
+  .copied-note{ font-size: 0.8rem; color: #2B7A4B; font-weight: 600; margin-top: 8px; display: none; }
+  .copied-note.show{ display: inline-block; }
+
+  @media (min-width: 640px){
+    .admin-panel{
+      left: auto; top: 0; bottom: 0;
+      width: min(340px, 90%);
+      border-radius: 0; border-top: none;
+      border-left: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: -15px 0 45px rgba(93, 67, 97, 0.15);
+      transform: translateX(100%);
+      max-height: none;
+    }
+    .admin-panel.open{ transform: translateX(0); }
+    .drag-handle{ display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-shell" id="appShell">
+  <div class="ambient-layer" id="ambientLayer"></div>
+  <div class="balloon-layer" id="balloonLayer"></div>
+
+  <main class="app">
+    <div class="screen-container">
+      
+      <section class="screen glass active" id="screen1">
+        <div class="puppy-wrap jelly-hover" id="introPuppy">
+          <svg viewBox="0 0 200 200" width="100%" height="100%">
+            <defs>
+              <radialGradient id="earGrad" cx="35%" cy="30%" r="80%">
+                <stop offset="0%" stop-color="#FBEBD4"/><stop offset="100%" stop-color="#EFC29A"/>
+              </radialGradient>
+              <radialGradient id="headGrad" cx="35%" cy="28%" r="85%">
+                <stop offset="0%" stop-color="#FFF0DC"/><stop offset="100%" stop-color="#FADFC0"/>
+              </radialGradient>
+              <linearGradient id="heartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FFB0BF"/><stop offset="100%" stop-color="#FF8FA3"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="100" cy="185" rx="55" ry="10" fill="#5D4361" opacity="0.08"/>
+            <ellipse cx="55" cy="80" rx="26" ry="34" fill="url(#earGrad)" transform="rotate(-25 55 80)"/>
+            <ellipse cx="145" cy="80" rx="26" ry="34" fill="url(#earGrad)" transform="rotate(25 145 80)"/>
+            <circle cx="100" cy="105" r="58" fill="url(#headGrad)"/>
+            <ellipse cx="100" cy="175" rx="48" ry="24" fill="url(#headGrad)"/>
+            <ellipse cx="100" cy="122" rx="26" ry="18" fill="#FFF8ED"/>
+            <ellipse cx="100" cy="126" rx="7" ry="5" fill="#5D4361"/>
+            <path d="M92 130 Q100 136 108 130" stroke="#5D4361" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <circle cx="80" cy="98" r="5.5" fill="#3D313F"/>
+            <circle cx="120" cy="98" r="5.5" fill="#3D313F"/>
+            <circle cx="82" cy="96" r="1.6" fill="#fff"/>
+            <circle cx="122" cy="96" r="1.6" fill="#fff"/>
+            <ellipse cx="68" cy="112" rx="8" ry="5" fill="#FF8FA3" opacity="0.5"/>
+            <ellipse cx="132" cy="112" rx="8" ry="5" fill="#FF8FA3" opacity="0.5"/>
+            <ellipse cx="76" cy="160" rx="14" ry="12" fill="url(#earGrad)"/>
+            <ellipse cx="124" cy="160" rx="14" ry="12" fill="url(#earGrad)"/>
+            <g transform="translate(100,152)" style="transform-origin: center; animation: eqBounce 1.2s ease-in-out infinite;">
+              <path d="M0 10 C -14 -2, -14 -18, 0 -10 C 14 -18, 14 -2, 0 10 Z" fill="url(#heartGrad)"/>
+            </g>
+          </svg>
+        </div>
+        <h1>Will you open your birthday surprise? 🎁</h1>
+        <p class="sub">Someone made something extra special for you... (Psst! You can pop the balloons! 🎈)</p>
+        <div class="btn-row">
+          <button class="btn-yes" id="btnYes">Yes! 💗</button>
+          <button class="btn-no" id="btnNo">No</button>
+        </div>
+      </section>
+
+      <section class="screen glass" id="screen2">
+        <h1>Make a wish 🕯️</h1>
+        <p class="sub" id="micSub">Blow into your mic, or tap the flame!</p>
+
+        <div class="cake-wrap jelly-hover" id="candleTarget" role="button" tabindex="0" aria-label="Blow out the candle">
+          <div class="puff-text" id="puffText">Puffff... 💨</div>
+          
+          <svg viewBox="0 0 240 240" width="100%" height="100%">
+            <defs>
+              <linearGradient id="layer3Grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFD3DF"/><stop offset="100%" stop-color="#FFAEC3"/></linearGradient>
+              <linearGradient id="layer2Grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E8FDF5"/><stop offset="100%" stop-color="#C2F3E1"/></linearGradient>
+              <linearGradient id="layer1Grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F2ECFF"/><stop offset="100%" stop-color="#D7CAFD"/></linearGradient>
+              <linearGradient id="creamDrip" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFDF9"/><stop offset="100%" stop-color="#FFF5E4"/></linearGradient>
+              <radialGradient id="flameHot" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#FFF5D1"/><stop offset="50%" stop-color="#FFB96B"/><stop offset="100%" stop-color="#FF6B4A"/></radialGradient>
+            </defs>
+
+            <ellipse cx="120" cy="215" rx="95" ry="12" fill="#5D4361" opacity="0.08"/>
+            <ellipse cx="120" cy="210" rx="90" ry="14" fill="#FFFDF9" stroke="#E1DCD3" stroke-width="2"/>
+            <ellipse cx="120" cy="208" rx="82" ry="10" fill="#FFF6E3" opacity="0.6"/>
+
+            <path d="M45,160 L45,195 C45,203 78,208 120,208 C162,208 195,203 195,195 L195,160 Z" fill="url(#layer1Grad)"/>
+            <ellipse cx="120" cy="160" rx="75" ry="11" fill="#E6DCFF"/>
+
+            <path d="M52,118 L52,152 C52,160 82,165 120,165 C158,165 188,160 188,152 L188,118 Z" fill="url(#layer2Grad)"/>
+            <ellipse cx="120" cy="118" rx="68" ry="10" fill="#D3F6EB"/>
+
+            <path d="M60,75 L60,110 C60,117 87,122 120,122 C153,122 180,117 180,110 L180,75 Z" fill="url(#layer3Grad)"/>
+            <path d="M60,75 C60,88 70,94 75,88 C80,82 85,98 95,96 C105,94 110,84 115,86 C120,88 125,98 135,95 C145,92 148,84 155,87 C162,90 170,94 175,84 C178,78 180,82 180,75 C180,68 153,64 120,64 C87,64 60,68 60,75 Z" fill="url(#creamDrip)"/>
+            <ellipse cx="120" cy="65" rx="60" ry="9" fill="url(#creamDrip)"/>
+
+            <g transform="translate(85, 52) scale(0.8)"><path d="M10,0 C17,-5 20,10 10,18 C0,10 3,-5 10,0 Z" fill="#FF5E7E"/><circle cx="8" cy="6" r="0.7" fill="#FFF"/><circle cx="12" cy="9" r="0.7" fill="#FFF"/></g>
+            <g transform="translate(135, 54) scale(0.8)"><path d="M10,0 C17,-5 20,10 10,18 C0,10 3,-5 10,0 Z" fill="#FF5E7E"/><circle cx="8" cy="6" r="0.7" fill="#FFF"/><circle cx="12" cy="9" r="0.7" fill="#FFF"/></g>
+            <rect x="110" y="62" width="6" height="2" rx="1" fill="#FFC75F" transform="rotate(15 110 62)"/>
+            <rect x="125" y="66" width="5" height="2" rx="1" fill="#B8A6E0" transform="rotate(-25 125 66)"/>
+            <rect x="98" y="65" width="5" height="2" rx="1" fill="#FF758F" transform="rotate(45 98 65)"/>
+
+            <rect x="114" y="28" width="12" height="40" rx="5" fill="#FFC75F" stroke="#FFF" stroke-width="1.5"/>
+            <path d="M114,36 L126,30 M114,46 L126,40 M114,56 L126,50" stroke="#FFE3A8" stroke-width="2.5"/>
+            
+            <g id="flame" class="flame">
+              <path d="M120,2 C129,14 129,26 120,30 C111,26 111,14 120,2 Z" fill="url(#flameHot)"/>
+              <path d="M120,12 C124,19 124,25 120,27 C116,27 116,19 120,12 Z" fill="#FFFDF0"/>
+            </g>
+            <g id="smoke" class="smoke">
+              <path d="M120,26 Q114,10 123,-2" stroke="#E1DCE6" stroke-width="4" fill="none" stroke-linecap="round"/>
+            </g>
+
+            <g class="cake-sparkle" style="animation-delay: 0s; transform-origin: 35px 45px;"><polygon points="35,35 37,42 44,44 37,46 35,53 33,46 26,44 33,42" fill="#FFC75F"/></g>
+            <g class="cake-sparkle" style="animation-delay: 0.6s; transform-origin: 205px 65px;"><polygon points="205,55 207,62 214,64 207,66 205,73 203,66 196,64 203,62" fill="#FF758F"/></g>
+            <g class="cake-sparkle" style="animation-delay: 1.2s; transform-origin: 40px 125px;"><polygon points="40,115 42,122 49,124 42,126 40,133 38,126 31,124 38,122" fill="#B8A6E0"/></g>
+          </svg>
+        </div>
+
+        <div class="mic-status" id="micStatus">
+          <span class="eq-bars" id="eqBars" style="display:none;"><span></span><span></span><span></span></span>
+          <span id="micStatusText">Initializing audio input parameters...</span>
+        </div>
+        <p class="tap-hint" id="tapHint">👆 or seamlessly tap the candle</p>
+      </section>
+
+      <section class="screen glass" id="screen3">
+        <h1>A little something for you</h1>
+        <p class="sub">Tap the package to open it</p>
+        <div class="gift-container">
+          <div class="gift-wrap jelly-hover" id="giftBox" role="button" tabindex="0" aria-label="Open the gift box">
+            <svg viewBox="0 0 200 170" width="100%" height="100%">
+              <defs>
+                <linearGradient id="giftBase" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D5C5FF"/><stop offset="100%" stop-color="#B79FFF"/></linearGradient>
+                <linearGradient id="giftLid" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C5B1FF"/><stop offset="100%" stop-color="#A182FF"/></linearGradient>
+              </defs>
+              <g class="gift-glow">
+                <circle cx="100" cy="70" r="72" fill="#FFF2CC" opacity="0.65"/>
+              </g>
+              <rect x="35" y="80" width="130" height="80" rx="14" fill="url(#giftBase)"/>
+              <rect x="35" y="80" width="130" height="80" rx="14" fill="#fff" opacity="0.1"/>
+              <rect x="90" y="80" width="20" height="80" fill="#FFE5EC"/>
+              <g class="gift-lid">
+                <rect x="26" y="55" width="148" height="30" rx="12" fill="url(#giftLid)"/>
+                <rect x="90" y="55" width="20" height="30" fill="#FFE5EC"/>
+                <path d="M75 55 C 55 35, 55 10, 78 16 C 90 20, 92 42, 100 55 C 108 42, 110 20, 122 16 C 145 10, 145 35, 125 55 Z" fill="url(#giftLid)"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="tap-hint" style="opacity:0.8; font-size:0.88rem; color:var(--plum);">✨ Something sweet is waiting inside</p>
+      </section>
+
+      <section class="screen glass" id="screen4">
+        <div class="letter-wrap" id="letterWrapper">
+          <div class="letter-card" id="letterCard">
+            <p class="letter-title">Happy Birthday</p>
+            <p class="msg-body" id="letterMessage"></p>
+            <p class="letter-seal">✦ With All My Love ✦</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+      <p>Are you completely sure? Give it a try! 🥺</p>
+      <button id="modalClose">Okay, let's look! 💕</button>
+    </div>
+  </div>
+
+  <button class="music-toggle" id="musicToggle" aria-label="Toggle background music">🔊</button>
+  <button class="admin-toggle" id="adminToggle">✨ Creator settings</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <div class="admin-panel" id="adminPanel">
+    <div class="drag-handle"></div>
+    <h3>Write your own message</h3>
+    <p class="hint">This generates a custom URL signature allowing you to seamlessly gift this custom page setup to friends.</p>
+    <textarea id="customMessage" placeholder="Happy birthday! Wishing you a day as sweet as you are..."></textarea>
+    <div class="admin-actions">
+      <button class="btn-generate" id="generateLink">Generate shareable link</button>
+      <button class="btn-close-admin" id="closeAdmin">Close</button>
+    </div>
+    <div class="link-preview" id="linkPreview"></div>
+    <div class="copied-note" id="copiedNote">Copied directly to clipboard! 📋</div>
+  </div>
+</div>
+
+<audio id="sfxClick" preload="auto" src="https://archive.org/download/yt-5s.com-pop-sound-effect-128-kbps/yt5s.com%20-%20POP%20-%20Sound%20Effect%20%28128%20kbps%29.mp3"></audio>
+<audio id="sfxWhoosh" preload="auto" src="https://archive.org/download/whoosh/whoosh-%20%2814%29.mp3"></audio>
+<audio id="sfxBgMusic" preload="auto" loop src="https://archive.org/download/happy-birthday-instrumental/HAPPY%20BIRTHDAY%20INSTRUMENTAL.mp3"></audio>
+
+<script>
+(function(){
+  const DEFAULT_MESSAGE = "Happy birthday to the most wonderful person I know! 🎉\n\nI hope today is filled with laughter, cake, and all your favorite things. Here's to another year of you being absolutely amazing.\n\nWith so much love,\nYour friend 💗";
+
+  let currentActiveScreen = document.getElementById('screen1');
+  
+  const btnYes = document.getElementById('btnYes');
+  const btnNo = document.getElementById('btnNo');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalClose = document.getElementById('modalClose');
+
+  const screen2 = document.getElementById('screen2');
+  const screen3 = document.getElementById('screen3');
+  const screen4 = document.getElementById('screen4');
+
+  const candleTarget = document.getElementById('candleTarget');
+  const flame = document.getElementById('flame');
+  const smoke = document.getElementById('smoke');
+  const puffText = document.getElementById('puffText');
+  const eqBars = document.getElementById('eqBars');
+  const micStatusText = document.getElementById('micStatusText');
+  const tapHint = document.getElementById('tapHint');
+  
+  const giftBox = document.getElementById('giftBox');
+  const letterMessage = document.getElementById('letterMessage');
+  const letterCard = document.getElementById('letterCard');
+  const balloonLayer = document.getElementById('balloonLayer');
+
+  const adminToggle = document.getElementById('adminToggle');
+  const adminPanel = document.getElementById('adminPanel');
+  const sidebarOverlay = document.getElementById('sidebarOverlay');
+  const closeAdmin = document.getElementById('closeAdmin');
+  const customMessage = document.getElementById('customMessage');
+  const generateLink = document.getElementById('generateLink');
+  const linkPreview = document.getElementById('linkPreview');
+  const copiedNote = document.getElementById('copiedNote');
+  const musicToggle = document.getElementById('musicToggle');
+
+  const sfxClick = document.getElementById('sfxClick');
+  const sfxWhoosh = document.getElementById('sfxWhoosh');
+  const sfxBgMusic = document.getElementById('sfxBgMusic');
+
+  let candleBlown = false;
+  let giftOpened = false;
+  let musicPlaying = false;
+  let audioCtx = null;
+  let analyser = null;
+  let micStream = null;
+  let micRAF = null;
+  let balloonInterval = null;
+
+  // ---------- FLUID SCREEN SLIDE-AND-FADE TRANSITIONS ----------
+  function transitionToScreen(nextScreen) {
+    if (!currentActiveScreen || currentActiveScreen === nextScreen) return;
+    
+    const prev = currentActiveScreen;
+    prev.classList.remove('active');
+    prev.classList.add('exit');
+    
+    nextScreen.classList.add('active');
+    currentActiveScreen = nextScreen;
+    
+    setTimeout(() => {
+      prev.classList.remove('exit');
+    }, 650);
+  }
+
+  // ---------- AUDIO HANDLING WITH INLINE FADE IN ----------
+  function playSound(el, volume = 1){
+    try{
+      el.currentTime = 0;
+      el.volume = volume;
+      el.play().catch(()=>{});
+    }catch(err){}
+  }
+  
+  function fadeInMusic() {
+    try {
+      sfxBgMusic.volume = 0;
+      sfxBgMusic.loop = true;
+      sfxBgMusic.play().then(() => {
+        musicPlaying = true;
+        musicToggle.textContent = '🔊';
+        musicToggle.classList.add('show');
+        
+        let vol = 0;
+        const interval = setInterval(() => {
+          vol += 0.05;
+          if (vol >= 0.45) {
+            sfxBgMusic.volume = 0.45;
+            clearInterval(interval);
+          } else {
+            sfxBgMusic.volume = vol;
+          }
+        }, 150);
+      }).catch(() => {
+        musicToggle.textContent = '🔇';
+        musicToggle.classList.add('show');
+      });
+    } catch(e) {}
+  }
+
+  musicToggle.addEventListener('click', () => {
+    if(musicPlaying){
+      sfxBgMusic.pause();
+      musicPlaying = false;
+      musicToggle.textContent = '🔇';
+    } else {
+      sfxBgMusic.volume = 0.45;
+      sfxBgMusic.play().catch(()=>{});
+      musicPlaying = true;
+      musicToggle.textContent = '🔊';
+    }
+  });
+
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => playSound(sfxClick, 0.6));
+  });
+
+  // ---------- AMBIENT KINETIC BACKGROUND SPARKLES ----------
+  function generateEnhancedAmbientSparkles(){
+    const layer = document.getElementById('ambientLayer');
+    const items = ['🌸', '✨', '⭐', '🎈', '💖', '💫', '🍬'];
+    const maxParticles = 16;
+    
+    for(let i=0; i<maxParticles; i++){
+      const span = document.createElement('div');
+      span.className = 'sparkle-decor';
+      span.textContent = items[Math.floor(Math.random() * items.length)];
+      
+      span.style.setProperty('--x', (Math.random() * 120 - 60) + 'px');
+      span.style.setProperty('--d', (8 + Math.random() * 12) + 's');
+      span.style.setProperty('--op', (0.3 + Math.random() * 0.55));
+      
+      span.style.left = Math.random() * 100 + '%';
+      span.style.fontSize = (12 + Math.random() * 16) + 'px';
+      span.style.animationDelay = (Math.random() * 15) + 's';
+      
+      layer.appendChild(span);
+    }
+  }
+  generateEnhancedAmbientSparkles();
+
+  // ---------- DYNAMIC INTERACTIVE BALLOON ENGINE ----------
+  const balloonColors = ['rgba(255, 117, 143, 0.5)', 'rgba(255, 199, 95, 0.5)', 'rgba(184, 166, 224, 0.5)', 'rgba(110, 198, 165, 0.5)', 'rgba(163, 212, 255, 0.5)'];
+  
+  function createSingleBalloon() {
+    if (currentActiveScreen !== document.getElementById('screen1')) return;
+    
+    const b = document.createElement('div');
+    b.className = 'balloon';
+    const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+    b.style.backgroundColor = color;
+    b.style.setProperty('--b-color', color);
+    
+    // Position parameters
+    b.style.left = (10 + Math.random() * 75) + '%';
+    b.style.bottom = '-120px';
+    b.style.setProperty('--bob-time', (2 + Math.random() * 2) + 's');
+    
+    const shine = document.createElement('div');
+    shine.className = 'balloon-shine';
+    b.appendChild(shine);
+    
+    const string = document.createElement('div');
+    string.className = 'balloon-string';
+    b.appendChild(string);
+    
+    balloonLayer.appendChild(b);
+    
+    // Smooth custom upward physics engine loop
+    let currentBottom = -120;
+    const targetStop = 80 + Math.random() * 300;
+    const ascentSpeed = 1.2 + Math.random() * 1.5;
+    
+    function driftUp() {
+      if (currentActiveScreen !== document.getElementById('screen1') || !b.parentNode) {
+        b.remove();
+        return;
+      }
+      if (currentBottom < targetStop) {
+        currentBottom += ascentSpeed;
+        b.style.bottom = currentBottom + 'px';
+        requestAnimationFrame(driftUp);
+      }
+    }
+    requestAnimationFrame(driftUp);
+    
+    // Interactive Pop mechanics
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      popBalloonEffect(b, color);
+    });
+  }
+  
+  function popBalloonEffect(balloonElement, color) {
+    const rect = balloonElement.getBoundingClientRect();
+    const layerRect = balloonLayer.getBoundingClientRect();
+    const popX = rect.left + rect.width / 2 - layerRect.left;
+    const popY = rect.top + rect.height / 2 - layerRect.top;
+    
+    // Play Pop Sound Effect utilizing existing system audio parameters
+    playSound(sfxClick, 0.9);
+    
+    // Instantiate target visual particle configuration explosion
+    for(let i = 0; i < 16; i++) {
+      const p = document.createElement('div');
+      p.style.position = 'absolute';
+      p.style.left = popX + 'px';
+      p.style.top = popY + 'px';
+      p.style.width = '6px';
+      p.style.height = '6px';
+      p.style.borderRadius = '50%';
+      p.style.backgroundColor = color;
+      p.style.pointerEvents = 'none';
+      balloonLayer.appendChild(p);
+      
+      const angle = Math.random() * Math.PI * 2;
+      const force = 40 + Math.random() * 80;
+      const tx = Math.cos(angle) * force;
+      const ty = Math.sin(angle) * force;
+      
+      p.style.transition = 'transform 0.6s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.6s ease';
+      requestAnimationFrame(() => {
+        p.style.transform = `translate(${tx}px, ${ty}px) scale(0.5)`;
+        p.style.opacity = '0';
+      });
+      setTimeout(() => p.remove(), 600);
+    }
+    
+    balloonElement.remove();
+    // Dynamically spawn new replacements drifting directly into layout view parameters
+    setTimeout(createSingleBalloon, 1500);
+  }
+  
+  function initializeBalloons() {
+    for(let i = 0; i < 4; i++) {
+      setTimeout(createSingleBalloon, i * 600);
+    }
+  }
+  initializeBalloons();
+
+  // ---------- PARSE CUSTOM SIGNATURE PARAMETERS ----------
+  const urlMessage = (new URLSearchParams(window.location.search)).get('msg');
+  const finalMessage = urlMessage ? decodeURIComponent(urlMessage) : DEFAULT_MESSAGE;
+
+  // ---------- ACTION TRIGGERS & MIC ACCESS PARAMETERS ----------
+  btnYes.addEventListener('click', () => {
+    unlockAudioContext();
+    // Destruct balloon cycle context elements clean
+    balloonLayer.innerHTML = '';
+    transitionToScreen(screen2);
+    setTimeout(initMicListening, 400);
+  });
+  
+  btnNo.addEventListener('click', () => { modalOverlay.classList.add('active'); });
+  modalClose.addEventListener('click', () => { modalOverlay.classList.remove('active'); });
+  modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) modalOverlay.classList.remove('active'); });
+
+  // ---------- MICROPHONE PROCESSING & SENSITIVITY SYSTEM ----------
+  function unlockAudioContext() {
+    try {
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+      audioCtx.resume();
+    } catch(e) {}
+  }
+
+  function initMicListening(){
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+      micStatusText.textContent = 'Mic unavailable — tap the flame directly!';
+      return;
+    }
+    
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => {
+        micStream = stream;
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        
+        const source = audioCtx.createMediaStreamSource(stream);
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 256; 
+        source.connect(analyser);
+
+        eqBars.style.display = 'flex';
+        micStatusText.textContent = 'System listening… blow gently!';
+        monitorBlowPuff();
+      })
+      .catch(() => {
+        micStatusText.textContent = 'Permission denied — tap the flame!';
+      });
+  }
+
+  function monitorBlowPuff(){
+    if(!analyser || candleBlown) return;
+    const data = new Uint8Array(analyser.frequencyBinCount);
+    let sustainedBlowCount = 0;
+    
+    const BLOW_CRITICAL_THRESHOLD = 42; 
+    const PUFF_LOW_THRESHOLD = 18; 
+
+    function frameCheck(){
+      if(candleBlown) return;
+      analyser.getByteFrequencyData(data);
+      
+      let highFreqSum = 0;
+      let sampleCount = 0;
+      for(let i = Math.floor(data.length * 0.3); i < data.length; i++) {
+        highFreqSum += data[i];
+        sampleCount++;
+      }
+      const averageVolume = highFreqSum / sampleCount;
+
+      if(averageVolume > BLOW_CRITICAL_THRESHOLD){
+        sustainedBlowCount++;
+        if(sustainedBlowCount >= 3){ 
+          blowCandle(); 
+          return; 
+        }
+      } else if (averageVolume > PUFF_LOW_THRESHOLD) {
+        triggerPuffHint();
+        sustainedBlowCount = Math.max(0, sustainedBlowCount - 0.5);
+      } else {
+        sustainedBlowCount = Math.max(0, sustainedBlowCount - 1);
+      }
+      micRAF = requestAnimationFrame(frameCheck);
+    }
+    micRAF = requestAnimationFrame(frameCheck);
+  }
+
+  function triggerPuffHint() {
+    if(puffText.style.animationName === 'puffFloating') return;
+    puffText.style.animation = 'none';
+    setTimeout(() => {
+      puffText.style.animation = 'puffFloating 1s ease forwards';
+    }, 10);
+    setTimeout(() => { puffText.style.animation = ''; }, 1050);
+  }
+
+  function stopMicListening(){
+    if(micRAF) cancelAnimationFrame(micRAF);
+    if(micStream){ micStream.getTracks().forEach(t => t.stop()); micStream = null; }
+    if(audioCtx && audioCtx.state !== 'closed') audioCtx.close().catch(()=>{});
+  }
+
+  // ---------- BLOW OUT CELEBRATION FLOW ----------
+  function blowCandle(){
+    if(candleBlown) return;
+    candleBlown = true;
+    flame.classList.add('out');
+    smoke.classList.add('show');
+    eqBars.style.display = 'none';
+    micStatusText.textContent = 'Successfully blown! 🎉';
+    tapHint.style.display = 'none';
+    
+    playSound(sfxWhoosh, 0.7);
+    launchAppConfetti();
+    stopMicListening();
+    
+    setTimeout(() => {
+      transitionToScreen(screen3);
+    }, 1000);
+  }
+  
+  candleTarget.addEventListener('click', blowCandle);
+  candleTarget.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); blowCandle(); } });
+
+  // ---------- PRESENT UNBOXING INTERACTION ----------
+  function openGift(){
+    if(giftOpened || !candleBlown) return;
+    giftOpened = true;
+    giftBox.classList.add('opened');
+    letterMessage.textContent = finalMessage;
+    
+    fadeInMusic();
+    
+    setTimeout(() => {
+      transitionToScreen(screen4);
+      setTimeout(launchInternalLetterConfetti, 200);
+    }, 600);
+  }
+  giftBox.addEventListener('click', openGift);
+  giftBox.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openGift(); } });
+
+  // ---------- ENGINE CONFETTI SYSTEMS ----------
+  function launchAppConfetti(){
+    const colors = ['#FF758F', '#FFC75F', '#B8A6E0', '#6EC6A5', '#FFFDF9'];
+    for(let i=0; i<30; i++){
+      const piece = document.createElement('div');
+      piece.style.position = 'absolute';
+      piece.style.top = '-15px';
+      piece.style.width = (6 + Math.random() * 6) + 'px';
+      piece.style.height = (10 + Math.random() * 6) + 'px';
+      piece.style.opacity = 0.9;
+      piece.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+      piece.style.left = Math.random()*100 + '%';
+      piece.style.zIndex = '40';
+      piece.style.borderRadius = '3px';
+      
+      const fallDuration = 2 + Math.random() * 1.5;
+      piece.style.transition = `transform ${fallDuration}s linear, opacity ${fallDuration}s ease`;
+      
+      document.getElementById('appShell').appendChild(piece);
+      
+      requestAnimationFrame(() => {
+        piece.style.transform = `translateY(${window.innerHeight + 40}px) rotate(${360 + Math.random()*360}deg)`;
+        piece.style.opacity = '0.2';
+      });
+      
+      setTimeout(() => piece.remove(), fallDuration * 1000);
+    }
+  }
+
+  function launchInternalLetterConfetti() {
+    const colors = ['#FF758F', '#FFC75F', '#B8A6E0', '#6EC6A5'];
+    const totalConfetti = 24;
+    
+    for(let i = 0; i < totalConfetti; i++) {
+      const p = document.createElement('div');
+      p.className = 'letter-confetti';
+      p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      p.style.left = '50%';
+      p.style.top = '40%';
+      
+      letterCard.appendChild(p);
+      
+      const angle = Math.random() * Math.PI * 2;
+      const velocity = 60 + Math.random() * 90;
+      const tx = Math.cos(angle) * velocity;
+      const ty = Math.sin(angle) * velocity;
+      
+      p.style.transition = 'transform 0.8s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.8s ease';
+      
+      requestAnimationFrame(() => {
+        p.style.transform = `translate(${tx}px, ${ty}px) scale(${0.5 + Math.random()})`;
+        p.style.opacity = '0';
+      });
+      
+      setTimeout(() => p.remove(), 850);
+    }
+  }
+
+  // ---------- SETTINGS LAYOUT DRAWER ----------
+  function toggleAdminPanel(isOpen) {
+    adminPanel.classList.toggle('open', isOpen);
+    sidebarOverlay.classList.toggle('open', isOpen);
+  }
+  adminToggle.addEventListener('click', () => toggleAdminPanel(true));
+  closeAdmin.addEventListener('click', () => toggleAdminPanel(false));
+  sidebarOverlay.addEventListener('click', () => toggleAdminPanel(false));
+
+  generateLink.addEventListener('click', async () => {
+    const text = customMessage.value.trim();
+    const messageToUse = text || DEFAULT_MESSAGE;
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.searchParams.set('msg', encodeURIComponent(messageToUse));
+    const finalUrl = url.toString();
+
+    linkPreview.textContent = finalUrl;
+    linkPreview.classList.add('show');
+
+    try{
+      await navigator.clipboard.writeText(finalUrl);
+      copiedNote.classList.add('show');
+      setTimeout(() => copiedNote.classList.remove('show'), 3000);
+    }catch(err){
+      copiedNote.textContent = "Auto-copy failed — please highlight the URL manually!";
+      copiedNote.classList.add('show');
+    }
+  });
+
+  if(urlMessage){ customMessage.value = urlMessage; }
+})();
+</script>
+
+</body>
+</html>
